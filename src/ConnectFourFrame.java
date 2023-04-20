@@ -16,15 +16,13 @@ public class ConnectFourFrame extends JFrame implements KeyListener {
     // output stream to the server
     ObjectOutputStream os;
 
-    public ConnectFourFrame()
+    public ConnectFourFrame(GameData gameData, ObjectOutputStream os, char player)
     {
         super("Connect 4");
-        // sets the attributes
-//        this.gameData = gameData;
-//        this.os = os;
-//        this.player = player;
+        this.gameData = gameData;
+        this.os = os;
+        this.player = player;
 
-        // adds a KeyListener to the Frame
         addKeyListener(this);
 
         // makes closing the frame close the program
@@ -51,9 +49,9 @@ public class ConnectFourFrame extends JFrame implements KeyListener {
         g.setFont(new Font("Times New Roman",Font.BOLD,30));
         g.drawString(text,20,55);
 
-        for(int i = 0; i < 7; i++)
+        for(int i = 0; i < gameData.getGrid().length; i++)
         {
-            for(int j = 0; j < 6; j++)
+            for(int j = 0; j <  gameData.getGrid()[0].length; j++)
             {
                 char spot = gameData.getGrid()[i][j];
                 if(spot == 'R')
@@ -72,8 +70,8 @@ public class ConnectFourFrame extends JFrame implements KeyListener {
                 {
                     g.setColor(Color.PINK);
                 }
-                g.drawOval(i*100+100,j*100+100, 80, 80);
-                g.fillOval(i*100+100,j*100+100, 80, 80);
+                g.drawOval(j*100+100,i*100+100, 80, 80);
+                g.fillOval(j*100+100,i*100+100, 80, 80);
             }
         }
     }
@@ -105,57 +103,59 @@ public class ConnectFourFrame extends JFrame implements KeyListener {
         char key = event.getKeyChar();
         int r;
         int c;
+        System.out.println("pressed: "+event.getKeyChar());
 
-        //needs to be changed
-
-        // sets the row and column, based on the entered key
-        switch(key)
+        //reset
+        if(key == 'r')
         {
-            case '1':
-                r=0;
-                c=0;
-                break;
-            case '2':
-                r=0;
-                c=1;
-                break;
-            case '3':
-                r=0;
-                c=2;
-                break;
-            case '4':
-                r=1;
-                c=0;
-                break;
-            case '5':
-                r=1;
-                c=1;
-                break;
-            case '6':
-                r=1;
-                c=2;
-                break;
-            case '7':
-                r=2;
-                c=0;
-                break;
-            case '8':
-                r=2;
-                c=1;
-                break;
-            case '9':
-                r=2;
-                c=2;
-                break;
-            default:
-                r=c=-1;
+
         }
-        // if a valid enter was entered, send the move to the server
-        if(c!=-1) {
-            try {
-                os.writeObject(new CommandFromClient(CommandFromClient.MOVE, "" + c + r + player));
-            } catch (Exception e) {
-                e.printStackTrace();
+        else
+        {
+            switch(key)
+            {
+                case '1':
+                    c=0;
+                    break;
+                case '2':
+                    c=1;
+                    break;
+                case '3':
+                    c=2;
+                    break;
+                case '4':
+                    c=3;
+                    break;
+                case '5':
+                    c=4;
+                    break;
+                case '6':
+                    c=5;
+                    break;
+                case '7':
+                    c=6;
+                    break;
+                default:
+                    c=-1;
+            }
+            // if a valid enter was entered, send the move to the server
+            if(c!=-1) {
+                r = -1;
+                for(int i = gameData.getGrid().length-1; i >=0; i--)
+                {
+                    System.out.println(i+""+c);
+                    if(gameData.getGrid()[i][c] == ' ')
+                    {
+                        r =i;
+                        break;
+                    }
+                }
+                try {
+                    System.out.println("move at: "+r+""+c);
+                    os.writeObject(new CommandFromClient(CommandFromClient.MOVE, "" + c + r + player));
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 

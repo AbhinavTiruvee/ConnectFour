@@ -26,9 +26,9 @@ public class ClientsListener implements Runnable
 
                 // processes the received command
                 if(cfs.getCommand() == CommandFromServer.R_TURN)
-                    frame.setTurn('X');
+                    frame.setTurn('R');
                 else if(cfs.getCommand() == CommandFromServer.Y_TURN)
-                    frame.setTurn('O');
+                    frame.setTurn('Y');
                 else if(cfs.getCommand() == cfs.MOVE)
                 {
                     String data = cfs.getData();

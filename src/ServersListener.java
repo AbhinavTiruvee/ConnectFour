@@ -84,9 +84,9 @@ public class ServersListener implements Runnable
         int command = -1;
         if(gameData.isCat())
             command = CommandFromServer.TIE;
-        else if(gameData.isWinner('X'))
+        else if(gameData.isWinner('R'))
             command = CommandFromServer.R_WINS;
-        else if(gameData.isWinner('O'))
+        else if(gameData.isWinner('Y'))
             command = CommandFromServer.Y_WINS;
 
         // if the game ended, informs both clients of the game's end state
