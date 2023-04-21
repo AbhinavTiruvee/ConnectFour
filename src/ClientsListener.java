@@ -1,5 +1,6 @@
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.concurrent.TimeUnit;
 
 public class ClientsListener implements Runnable
 {
@@ -46,11 +47,49 @@ public class ClientsListener implements Runnable
                 }
                 else if(cfs.getCommand() == CommandFromServer.R_WINS)
                 {
-                    frame.setText("R wins!");
+                    frame.setText("R wins!, r to restart");
                 }
                 else if(cfs.getCommand() == CommandFromServer.Y_WINS)
                 {
-                    frame.setText("Y wins!");
+                    frame.setText("Y wins!, y to restart");
+                }
+                else if(cfs.getCommand() == CommandFromServer.RESTART)
+                {
+                    frame.setText("Restart");
+                }
+                else if(cfs.getCommand() == CommandFromServer.CLOSED)
+                {
+                    frame.setText("Closing in 5");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                    frame.setText("Closing in 4");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                    frame.setText("Closing in 3");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                    frame.setText("Closing in 2");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                    frame.setText("Closing in 1");
+                    try {
+                        Thread.sleep(1000);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                    frame.dispose();
                 }
             }
         }

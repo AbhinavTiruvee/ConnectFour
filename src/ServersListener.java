@@ -1,5 +1,6 @@
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.SocketException;
 import java.util.ArrayList;
 
 public class ServersListener implements Runnable
@@ -29,10 +30,22 @@ public class ServersListener implements Runnable
         {
             while(true)
             {
-                CommandFromClient cfc = (CommandFromClient) is.readObject();
-
+                CommandFromClient cfc = null;
+                try
+                {
+                     cfc = (CommandFromClient) is.readObject();
+                }
+                catch (Exception e)
+                {
+                    e.printStackTrace();
+                }
+                if(cfc == null)
+                {
+                    sendCommand(new CommandFromServer(CommandFromServer.CLOSED,null));
+                    break;
+                }
                 // handle the received command
-                if(cfc.getCommand()==CommandFromClient.MOVE &&
+                else if(cfc.getCommand()==CommandFromClient.MOVE &&
                         turn==player && !gameData.isWinner('R')
                         && !gameData.isWinner('Y')
                         && !gameData.isCat())
@@ -56,6 +69,11 @@ public class ServersListener implements Runnable
                     changeTurn();
                     checkGameOver();
                 }
+                else if(cfc.getCommand() == CommandFromClient.RESTART)
+                {
+                    gameData.reset();
+                    setTurn('R');
+                }
             }
         }
         catch(Exception e)
@@ -77,6 +95,11 @@ public class ServersListener implements Runnable
             sendCommand(new CommandFromServer(CommandFromServer.R_TURN, null));
         else
             sendCommand(new CommandFromServer(CommandFromServer.Y_TURN, null));
+    }
+
+    public void setTurn(char turnToSet)
+    {
+        turn = turnToSet;
     }
 
     public void checkGameOver()

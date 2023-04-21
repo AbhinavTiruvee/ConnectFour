@@ -2,6 +2,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Collections;
@@ -31,6 +32,17 @@ public class ConnectFourFrame extends JFrame implements KeyListener {
         // Set initial frame message
         if(player == 'R')
             text = "Waiting for Y to Connect";
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+                try {
+                    System.out.println("Closing");
+                    os.writeObject(new CommandFromClient(CommandFromClient.CLOSED, null));
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
 
         setSize(900,900);
         setResizable(false);
@@ -108,7 +120,15 @@ public class ConnectFourFrame extends JFrame implements KeyListener {
         //reset
         if(key == 'r')
         {
-
+            System.out.println("r pressed");
+            try {
+                os.writeObject(new CommandFromClient(CommandFromClient.RESTART, null));
+                gameData.reset();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            setText("R's turn");
+            repaint();
         }
         else
         {
