@@ -51,7 +51,7 @@ public class ClientsListener implements Runnable
                 }
                 else if(cfs.getCommand() == CommandFromServer.Y_WINS)
                 {
-                    frame.setText("Y wins!, y to restart");
+                    frame.setText("Y wins!, r to restart");
                 }
                 else if(cfs.getCommand() == CommandFromServer.RESTART)
                 {
@@ -59,6 +59,7 @@ public class ClientsListener implements Runnable
                 }
                 else if(cfs.getCommand() == CommandFromServer.CLOSED)
                 {
+                    System.out.print("closed");
                     frame.setText("Closing in 5");
                     try {
                         Thread.sleep(1000);

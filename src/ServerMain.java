@@ -10,7 +10,7 @@ public class ServerMain
         try
         {
             // creates a socket that allows connections on port 8001
-            ServerSocket serverSocket = new ServerSocket(8001);
+            ServerSocket serverSocket = new ServerSocket(8003);
 
             // allow X to connect and build streams to / from X
             Socket rCon = serverSocket.accept();

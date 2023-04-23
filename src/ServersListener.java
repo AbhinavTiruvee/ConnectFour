@@ -74,6 +74,10 @@ public class ServersListener implements Runnable
                     gameData.reset();
                     setTurn('R');
                 }
+                else if(cfc.getCommand() == CommandFromClient.CLOSED)
+                {
+                    sendCommand(new CommandFromServer(CommandFromServer.CLOSED, null));
+                }
             }
         }
         catch(Exception e)

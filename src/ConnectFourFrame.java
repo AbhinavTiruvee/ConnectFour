@@ -159,7 +159,16 @@ public class ConnectFourFrame extends JFrame implements KeyListener {
                     c=-1;
             }
             // if a valid enter was entered, send the move to the server
-            if(c!=-1) {
+            //valid checker
+            boolean filled = true;
+            for(int i = gameData.getGrid().length-1;i>=0;i--)
+            {
+                if(gameData.getGrid()[i][c] == ' ')
+                {
+                    filled = false;
+                }
+            }
+            if(c!=-1 && !filled) {
                 r = -1;
                 for(int i = gameData.getGrid().length-1; i >=0; i--)
                 {

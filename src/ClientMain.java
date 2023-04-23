@@ -11,7 +11,7 @@ public class ClientMain
             GameData gameData = new GameData();
 
             // create a connection to server
-            Socket socket = new Socket("127.0.0.1",8001);
+            Socket socket = new Socket("127.0.0.1",8003);
             ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
 
