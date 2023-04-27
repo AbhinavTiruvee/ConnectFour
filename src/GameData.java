@@ -51,26 +51,26 @@ public class GameData
         }
 
         //vertical win
-        for (int i = 0; i< grid.length-3 ; i++ ){
-            for (int j = 0; j< grid[0].length; j++){
-                if (grid[i][j] == letter && grid[i+1][j] == letter && grid[i+2][j] == letter && grid[i+3][j] == letter){
+        for (int r = 0; r< grid.length-3 ; r++ ){
+            for (int c = 0; c< grid[0].length; c++){
+                if (grid[r][c] == letter && grid[r+1][c] == letter && grid[r+2][c] == letter && grid[r+3][c] == letter){
                     return true;
                 }
             }
         }
 
         // diag going up right
-        for (int i=3; i< grid.length; i++){
-            for (int j=0; j< grid[0].length-3; j++){
-                if (grid[i][j] == letter && grid[i-1][j+1] == letter && grid[i-2][j+2] == letter && grid[i-3][j+3] == letter)
+        for (int r=3; r< grid.length; r++){
+            for (int c=0; c< grid[0].length-3; c++){
+                if (grid[r][c] == letter && grid[r-1][c+1] == letter && grid[r-2][c+2] == letter && grid[r-3][c+3] == letter)
                     return true;
             }
         }
 
         //diag going down right
-        for (int i=3; i< grid.length; i++){
-            for (int j=3; j<grid[0].length; j++){
-                if (grid[i][j] == letter && grid[i-1][j-1] == letter && grid[i-2][j-2] == letter && grid[i-3][j-3] == letter)
+        for (int r=3; r< grid.length; r++){
+            for (int c=3; c<grid[0].length; c++){
+                if (grid[r][c] == letter && grid[r-1][c-1] == letter && grid[r-2][c-2] == letter && grid[r-3][c-3] == letter)
                     return true;
             }
         }
