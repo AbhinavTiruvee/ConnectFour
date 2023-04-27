@@ -33,7 +33,7 @@ public class ServerMain
 
             // Lets the client know they are the X player
             yos.writeObject(new CommandFromServer(CommandFromServer.CONNECTED_AS_Y,null));
-            System.out.println("O has Connected.");
+            System.out.println("Y has Connected.");
 
             // Creates a Thread to listen to the X client
             sl = new ServersListener(yis,yos,'Y');

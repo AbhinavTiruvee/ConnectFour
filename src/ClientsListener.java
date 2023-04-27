@@ -43,7 +43,7 @@ public class ClientsListener implements Runnable
                 // handles the various end game states
                 else if(cfs.getCommand() == CommandFromServer.TIE)
                 {
-                    frame.setText("Tie game.");
+                    frame.setText("Tie game. r to restart");
                 }
                 else if(cfs.getCommand() == CommandFromServer.R_WINS)
                 {
@@ -56,6 +56,7 @@ public class ClientsListener implements Runnable
                 else if(cfs.getCommand() == CommandFromServer.RESTART)
                 {
                     frame.setText("Restart");
+                    frame.setTurn('R');
                 }
                 else if(cfs.getCommand() == CommandFromServer.CLOSED)
                 {

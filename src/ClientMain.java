@@ -15,7 +15,7 @@ public class ClientMain
             ObjectInputStream is = new ObjectInputStream(socket.getInputStream());
             ObjectOutputStream os = new ObjectOutputStream(socket.getOutputStream());
 
-            // determine if playing as X or O
+            // determine if playing as R or Y
             CommandFromServer cfs = (CommandFromServer) is.readObject();
             ConnectFourFrame frame;
 
